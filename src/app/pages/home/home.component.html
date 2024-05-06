@@ -1,0 +1,188 @@
+<div class="content">
+    <div class="row" style="text-align: center;">
+        <div class="col-12">
+            <img src="./assets/img/quala.jpg" class="logo" style="width: 15%;">
+        </div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="col col-lg-6 col-sm-12 col-md-12 col1">
+            <form [formGroup]="formData" [hidden]="!isNew">
+                <div class="row ">
+                    <div class="col col-lg-412col-md-12 col-sm-12">
+                        <label class="labels-input">Código</label>
+                        <input type="text" class="form-control" formControlName="codigo" (keypress)="isNumber($event)">
+                        <div class="alert alert-danger mt-2" [hidden]="codigo?.valid || codigo?.pristine">
+                            Este campo es requerido.
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <div class="row ">
+                    <div class="col col-lg-412col-md-12 col-sm-12">
+                        <label class="labels-input">Identificación</label>
+                        <input type="text" class="form-control" maxlength="50" formControlName="identificacion">
+                        <div class="alert alert-danger mt-2"
+                            [hidden]="identificacion?.valid || identificacion?.pristine">
+                            Este campo es requerido.
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <div class="row ">
+                    <div class="col col-lg-412col-md-12 col-sm-12">
+                        <label class="labels-input">Moneda</label>
+                        <select class="form-select" formControlName="moneda">
+                            <option selected disabled>Seleccione una opción</option>
+                            <option *ngFor="let i of currency" value="{{i.id}}">
+                                {{i.abreviatura}}
+                            </option>
+                        </select>
+                        <div class="alert alert-danger mt-2" [hidden]="moneda.valid">
+                            Este campo es requerido.
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col col-lg-412col-md-12 col-sm-12">
+                        <label class="labels-input">Dirección</label>
+                        <input type="text" class="form-control" maxlength="250" formControlName="direccion">
+                        <div class="alert alert-danger mt-2" [hidden]="direccion?.valid || direccion?.pristine">
+                            Este campo es requerido.
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <div class="row ">
+                    <div class="col col-lg-412col-md-12 col-sm-12">
+                        <label class="labels-input">Descripción</label>
+                        <textarea class="form-control" rows="2" maxlength="250"
+                            formControlName="descripcion"></textarea>
+                        <div style="text-align: end;">
+                            <span>{{formData.get('descripcion').value.length}}/250</span>
+                        </div>
+                        <div class="alert alert-danger mt-2" [hidden]="descripcion?.valid || descripcion?.pristine">
+                            Este campo es requerido.
+                        </div>
+                    </div>
+                </div>
+                <div class="row ">
+                    <div class="col col-lg-412col-md-12 col-sm-12">
+                        <label class="labels-input">Fecha de creación</label>
+                        <input type="date" class="form-control" formControlName="fechaCreacion" [min]="minDate"
+                            format="yyyy/mm/dd">
+                        <div class="alert alert-danger mt-2" [hidden]="fechaCreacion.valid || fechaCreacion?.pristine">
+                            Este campo es requerido.
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <div class="row text-center">
+                    <div class="col col-lg-12 col-md-12 col-sm-12">
+                        <button class="btn btn-primary" (click)="CreateBranchOffice()" [disabled]="formData.invalid"
+                            style="width: 30%;">Agregar</button>
+                    </div>
+                </div>
+                <br>
+            </form>
+
+            <div [hidden]="isNew">
+                <div class="row ">
+                    <div class="col col-lg-412col-md-12 col-sm-12">
+                        <label class="labels-input">Código</label>
+                        <input type="text" class="form-control" [(ngModel)]="branch_office_edit.codigo" disabled>
+                    </div>
+                </div>
+                <br>
+                <div class="row ">
+                    <div class="col col-lg-412col-md-12 col-sm-12">
+                        <label class="labels-input">Identificación</label>
+                        <input type="text" class="form-control" [(ngModel)]="branch_office_edit.identificacion"
+                            maxlength="50">
+                    </div>
+                </div>
+                <br>
+                <div class="row ">
+                    <div class="col col-lg-412col-md-12 col-sm-12">
+                        <label class="labels-input">Moneda</label>
+                        <select class="form-select" [(ngModel)]="branch_office_edit.idMoneda">
+                            <option selected disabled>Seleccione una opción</option>
+                            <option *ngFor="let i of currency" value="{{i.id}}">
+                                {{i.abreviatura}}
+                            </option>
+                        </select>
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col col-lg-412col-md-12 col-sm-12">
+                        <label class="labels-input">Dirección</label>
+                        <input type="text" class="form-control" maxlength="250"
+                            [(ngModel)]="branch_office_edit.direccion">
+                    </div>
+                </div>
+                <br>
+                <div class="row ">
+                    <div class="col col-lg-412col-md-12 col-sm-12">
+                        <label class="labels-input">Descripción</label>
+                        <textarea class="form-control" rows="2" maxlength="250"
+                            [(ngModel)]="branch_office_edit.descripcion"></textarea>
+                    </div>
+                </div>
+                <br>
+                <div class="row ">
+                    <div class="col col-lg-412col-md-12 col-sm-12">
+                        <label class="labels-input">Fecha de creación</label>
+                        <input disabled type="date" class="form-control" [(ngModel)]="branch_office_edit.fechaCreacion"
+                            [min]="minDate" format="yyyy/mm/dd">
+                    </div>
+                </div>
+                <br>
+                <div class="row text-center">
+                    <div class="col col-lg-6 col-md-12 col-sm-12">
+                        <button class="btn btn-danger" (click)="reload()" style="width: 80%;">Cancelar</button>
+                    </div>
+                    <div class="col col-lg-6 col-md-12 col-sm-12">
+                        <button class="btn btn-primary" (click)="UpdateBranchOffice()"
+                            style="width: 80%;">Actualizar</button>
+                    </div>
+                </div>
+                <br>
+            </div>
+        </div>
+
+        <div class="col col-lg-6 col-sm-12 col-md-12 col2">
+            <div class="row" style="text-align: end;">
+                <div class="col" style="text-align: end;">
+                    <input type="text" class=" find" placeholder="Filtrar por código" (keypress)="isNumber($event)"
+                        (keyup)="filter($event)">
+                </div>
+            </div>
+            <br>
+            <div class="row">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>Código</th>
+                            <th>Dirección</th>
+                            <th>Acción</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let item of branchOffice">
+                            <th style="font-weight: 400 !important;">{{item.codigo}}</th>
+                            <th style="font-weight: 400 !important;">{{item.direccion}}</th>
+                            <th style="font-weight: 400 !important;">
+                                <button class="btn btn-sm btn-icon btn-link"
+                                    (click)="showFieldEdit(item.id)">Editar</button>
+                                <button class="btn btn-sm btn-icon btn-link"
+                                    (click)="DeleteBranchOffice(item.id)">Eliminar</button>
+                            </th>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
